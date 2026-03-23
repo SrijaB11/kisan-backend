@@ -4,9 +4,9 @@ let userSchema = new mongoose.Schema({
   name: String,
   email: String,
   number: String,
-  pasword: String,
+  password: String,
   role: String,
 });
-let userModel = new mongoose.model("customer", userSchema);
 
-module.exports = userModel;
+let UserModel = mongoose.model("User", userSchema);
+module.exports = UserModel;
