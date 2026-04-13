@@ -1,40 +1,17 @@
-let express = require("express");
-const ProductModel = require("../models/ProductModel");
+const express = require("express");
 
-let router = express.Router();
+const {
+  addProduct,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
+} = require("../controllers/productController");
 
-router.post("/add", async (req, res) => {
-  let data = req.body;
-  try {
-    let result = await ProductModel.create(data);
+const router = express.Router();
 
-    res.status(201).json({
-      message: "successfully stored",
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      message: "server error",
-    });
-  }
-});
-router.get("/getAll", async (req, res) => {
-  let result = await ProductModel.find();
-  res.status(200).json(result);
-});
-router.put("/edit/:id", async (req, res) => {
-  let id = req.params.id;
-  console.log(id);
-  let data = req.body;
+router.post("/add", addProduct);
+router.get("/getAll", getAllProducts);
+router.put("/edit/:id", updateProduct);
+router.delete("/delete/:id", deleteProduct);
 
-  let result = await ProductModel.findOneAndUpdate({ _id: id }, data);
-  res.status(200).json({
-    message: "updated",
-  });
-});
-router.get("/delete/:id", async (req, res) => {
-  let id = req.params.id;
-  let result = await ProductModel.findOneAndDelete({ _id: id });
-  res.status(200).json(result);
-});
 module.exports = router;

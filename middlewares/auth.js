@@ -27,9 +27,8 @@ async function customerAuth(req, res, next) {
     // console.log(req);
     let token = req.headers.authorization.split(" ")[1];
     let decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(decoded);
+
     let result = await UserModel.findOne({ _id: decoded.id });
-    // console.log(result);
 
     if (!result || decoded.role != "customer") {
       res.status(401).json({
@@ -37,7 +36,6 @@ async function customerAuth(req, res, next) {
       });
       return;
     }
-    // console.log(decoded.id);
 
     req.userId = decoded.id;
     next();
