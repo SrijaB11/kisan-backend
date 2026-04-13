@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
     let data = req.body;
     data.role = "customer";
 
-    let existingUser = await userModel.findOne({ email: data.email });
+    let existingUser = await UserModel.findOne({ email: data.email });
 
     if (existingUser) {
       return res.status(400).json({
@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
   try {
     let data = req.body;
 
-    let user = await userModel.findOne({
+    let user = await UserModel.findOne({
       email: data.email,
       password: data.password,
     });
