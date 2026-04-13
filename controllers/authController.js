@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    await userModel.create(data);
+    await UserModel.create(data);
 
     res.status(201).json({
       message: "Successfully registered",
